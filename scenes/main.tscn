@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cbr6sqaig57ht"]
+[gd_scene load_steps=32 format=3 uid="uid://cbr6sqaig57ht"]
 
 [ext_resource type="Script" uid="uid://c8f112m6eeu1d" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dgrsfuexjkvmp" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://ci1p0b68e5b17" path="res://assets/01 - Trey Travis - Laughter With No Mouth.wav" id="13_trceg"]
 [ext_resource type="PackedScene" uid="uid://but4u6xjkaua7" path="res://scenes/pheeBodyGuard.tscn" id="16_jbj1t"]
 [ext_resource type="Script" uid="uid://crvaiadi7o6s8" path="res://scripts/path_3d_4.gd" id="17_muem4"]
+[ext_resource type="PackedScene" uid="uid://djqufa0ofllns" path="res://scenes/pause.tscn" id="18_dp3eg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ya4ey"]
 shader = ExtResource("10_choun")
@@ -235,7 +236,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 13.8587, 0.227675, -21
 curve = SubResource("Curve3D_dp3eg")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D3"]
-transform = Transform3D(-0.105748, 0.0124021, 0.994303, -1.39697e-09, 0.999905, -0.012472, -0.994381, -0.00131891, -0.10574, -0.974392, -0.402868, -0.0747681)
+transform = Transform3D(-0.105748, 0.0124021, 0.994302, 0, 0.999905, -0.0124721, -0.99438, -0.00131891, -0.10574, -0.974392, -0.402868, -0.0747681)
 
 [node name="pheeBodyGuard" parent="Path3D3/PathFollow3D" node_paths=PackedStringArray("pathfollow") instance=ExtResource("16_jbj1t")]
 pathfollow = NodePath("..")
@@ -247,7 +248,7 @@ curve = SubResource("Curve3D_dp3eg")
 script = ExtResource("17_muem4")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D4"]
-transform = Transform3D(-0.105748, 0.0124021, 0.994303, -1.39697e-09, 0.999905, -0.012472, -0.994381, -0.00131891, -0.10574, -0.974392, -0.402868, -0.0747681)
+transform = Transform3D(-0.105748, 0.0124021, 0.994302, 0, 0.999905, -0.0124721, -0.99438, -0.00131891, -0.10574, -0.974392, -0.402868, -0.0747681)
 
 [node name="pheeBodyGuard" parent="Path3D4/PathFollow3D" node_paths=PackedStringArray("pathfollow") instance=ExtResource("16_jbj1t")]
 pathfollow = NodePath("..")
@@ -258,7 +259,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 13.8587, 0.227675, -21
 curve = SubResource("Curve3D_0ld40")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D5"]
-transform = Transform3D(0.998785, 0.00101189, 0.0485128, 5.82055e-11, 0.999782, -0.0208537, -0.0485216, 0.0208291, 0.998605, -0.0294743, -0.408469, -11.8422)
+transform = Transform3D(0.998785, 0.00101187, 0.0485123, 5.82055e-11, 0.999782, -0.0208536, -0.048521, 0.020829, 0.998605, -0.0294743, -0.408469, -11.8422)
 
 [node name="pheeBodyGuard" parent="Path3D5/PathFollow3D" node_paths=PackedStringArray("pathfollow") instance=ExtResource("16_jbj1t")]
 pathfollow = NodePath("..")
@@ -269,11 +270,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 13.8587, 0.227675, -21
 curve = SubResource("Curve3D_gqmmt")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D6"]
-transform = Transform3D(-0.0775584, -0.0775937, -0.993958, 0, 0.996961, -0.0778281, 0.996982, -0.00603625, -0.0773231, -20.725, -0.657921, -13.3653)
+transform = Transform3D(-0.0775607, -0.0775936, -0.993958, 0, 0.996961, -0.077828, 0.996981, -0.00603643, -0.0773255, -20.725, -0.657921, -13.3653)
 
 [node name="pheeBodyGuard" parent="Path3D6/PathFollow3D" node_paths=PackedStringArray("pathfollow") instance=ExtResource("16_jbj1t")]
 transform = Transform3D(0.0556736, -1.86265e-09, 0.998449, -0.0508149, 0.998704, 0.00283345, -0.997155, -0.0508938, 0.0556015, 19.1999, -0.768151, -28.001)
 pathfollow = NodePath("..")
 speed = 1.0
+
+[node name="pause" parent="." instance=ExtResource("18_dp3eg")]
+visible = false
 
 [connection signal="body_entered" from="js1" to="js1" method="_on_body_entered"]

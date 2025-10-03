@@ -3,7 +3,7 @@ extends CharacterBody3D
 @onready var pivot = $Pivot
 @onready var camera = $Pivot/Camera3D
 @onready var raycast = $Pivot/Camera3D/RayCast3D
-@onready var crosshair = $Label
+@onready var crosshair = $crosshair2
 @onready var part = $part
 @onready var stamina_bar = $ProgressBar
 

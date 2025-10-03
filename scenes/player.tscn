@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgrsfuexjkvmp"]
+[gd_scene load_steps=8 format=3 uid="uid://dgrsfuexjkvmp"]
 
 [ext_resource type="Script" uid="uid://b6jb64qs2tfxi" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="AudioStream" uid="uid://5sx1524m2546" path="res://assets/footstep-372877.mp3" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://dkxoop8mtj8x6" path="res://White/crosshair001.png" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://djwtgp85crihw" path="res://White/crosshair180.png" id="4_dqkch"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2brh"]
 radius = 0.272766
@@ -38,25 +40,6 @@ spot_angle = 34.1754
 
 [node name="AudioListener3D" type="AudioListener3D" parent="Pivot/Camera3D"]
 current = true
-
-[node name="Label" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -32.0
-offset_right = 20.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 36
-text = "."
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="part" type="Label" parent="."]
 anchors_preset = 1
@@ -101,3 +84,31 @@ theme_override_styles/background = SubResource("StyleBoxFlat_g2els")
 theme_override_styles/fill = SubResource("StyleBoxFlat_qhqgy")
 value = 11.81
 show_percentage = false
+
+[node name="crosshair" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair001" type="Sprite2D" parent="crosshair"]
+texture = ExtResource("3_dqkch")
+
+[node name="crosshair2" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair180" type="Sprite2D" parent="crosshair2"]
+scale = Vector2(0.453125, 0.453125)
+texture = ExtResource("4_dqkch")
