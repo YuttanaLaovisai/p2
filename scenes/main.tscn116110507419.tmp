@@ -1,0 +1,164 @@
+[gd_scene load_steps=23 format=3 uid="uid://cbr6sqaig57ht"]
+
+[ext_resource type="Script" uid="uid://c8f112m6eeu1d" path="res://scripts/main.gd" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://dgrsfuexjkvmp" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://cwl833bi2mjlm" path="res://assets/Skybox.png" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://bmjvr6kv4a1tu" path="res://scenes/abandoned_house.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://djv7f3q07u6fh" path="res://scenes/pratu.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://to4hoei7kmd2" path="res://scenes/tire.tscn" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://jtlo1wix1vk1" path="res://scenes/fuel.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://qhpy4olca2cu" path="res://scenes/phee.tscn" id="8_tipki"]
+[ext_resource type="Script" uid="uid://yia56ja0fk0v" path="res://scripts/car_trigger.gd" id="9_85g3d"]
+[ext_resource type="Shader" uid="uid://bxjdnbffy5er6" path="res://shader/main.gdshader" id="10_choun"]
+[ext_resource type="PackedScene" uid="uid://dv7o4h0nxtxws" path="res://scenes/dust.tscn" id="11_ya4ey"]
+[ext_resource type="PackedScene" uid="uid://c1oeoa4crkihi" path="res://scenes/dialogue.tscn" id="12_eb6dy"]
+[ext_resource type="Script" uid="uid://djmhdugvddans" path="res://scripts/js.gd" id="13_a8y0u"]
+[ext_resource type="AudioStream" uid="uid://ci1p0b68e5b17" path="res://assets/01 - Trey Travis - Laughter With No Mouth.wav" id="13_trceg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ya4ey"]
+shader = ExtResource("10_choun")
+shader_parameter/desaturation = 0.6
+shader_parameter/sepia_strength = 0.4
+shader_parameter/noise_strength = 0.15
+shader_parameter/noise_scale = 50.0
+shader_parameter/time_speed = 1.5
+shader_parameter/scanline_strength = 0.05
+shader_parameter/vignette_strength = 0.8
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_jyhfs"]
+panorama = ExtResource("3_sugp2")
+
+[sub_resource type="Sky" id="Sky_trceg"]
+sky_material = SubResource("PanoramaSkyMaterial_jyhfs")
+
+[sub_resource type="Environment" id="Environment_tefeu"]
+background_mode = 2
+sky = SubResource("Sky_trceg")
+ambient_light_source = 3
+ambient_light_energy = 0.0
+glow_intensity = 8.0
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.150319, 0.167042, 0.193333, 1)
+fog_light_energy = 0.0
+fog_density = 1.0
+fog_aerial_perspective = 0.89
+fog_sky_affect = 0.79
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tbgi4"]
+size = Vector3(1, 10.2178, 59.403)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tefeu"]
+size = Vector3(44.6641, 8.4491, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_choun"]
+size = Vector3(5.64685, 2.60278, 2.27905)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trceg"]
+size = Vector3(2.18045, 1, 1)
+
+[node name="main" type="Node3D"]
+script = ExtResource("1_0wfyh")
+
+[node name="filter" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ya4ey")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tefeu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.729578, -0.573149, -0.373118, 0.445878, -0.0150488, 0.894967, -0.518564, -0.819313, 0.244575, -4.93839, 16.8988, 2.53228)
+
+[node name="Abandoned_House" parent="." instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8354, 0, 98.57)
+
+[node name="pratu" parent="." instance=ExtResource("5_tbgi4")]
+transform = Transform3D(0.725, 0, 0, 0, 1.014, 0, 0, 0, 0.72, 11.8929, 0.873842, -19.3763)
+
+[node name="barier" type="StaticBody3D" parent="."]
+
+[node name="barier" type="CollisionShape3D" parent="barier"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8181, 1.81787, -22.1709)
+shape = SubResource("BoxShape3D_tbgi4")
+
+[node name="barier2" type="CollisionShape3D" parent="barier"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.0556, 1.63574, -22.1709)
+shape = SubResource("BoxShape3D_tbgi4")
+
+[node name="barier3" type="CollisionShape3D" parent="barier"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.599762, 2.72064, 1.33797)
+shape = SubResource("BoxShape3D_tefeu")
+
+[node name="barier4" type="CollisionShape3D" parent="barier"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.599762, 2.72064, -52.0752)
+shape = SubResource("BoxShape3D_tefeu")
+
+[node name="tire" parent="." instance=ExtResource("6_tefeu")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 18.7487, 0.28706, -31.976)
+
+[node name="tire2" parent="." instance=ExtResource("6_tefeu")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 4.12138, -3.30905, -19.5417)
+
+[node name="tire3" parent="." instance=ExtResource("6_tefeu")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -14.6609, 3.86725, -23.0831)
+
+[node name="tire4" parent="." instance=ExtResource("6_tefeu")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 3.13047, -0.0153048, -33.1848)
+
+[node name="fuel" parent="." instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.98132, -3.69044, -27.915)
+
+[node name="car_trigger" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4638, 0, 0)
+script = ExtResource("9_85g3d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="car_trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52858, -0.430318, -3.34838)
+shape = SubResource("BoxShape3D_choun")
+
+[node name="alert" type="Label" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -93.0
+offset_right = 80.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "“Need tires and fuel”"
+
+[node name="dust" parent="." instance=ExtResource("11_ya4ey")]
+transform = Transform3D(-9.35424e-08, 2.14, 0, -2.14, -9.35424e-08, 0, 0, 0, 2.14, 0, 13.8542, -12.0473)
+
+[node name="player" parent="." instance=ExtResource("1_o5qli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.44529, -1.00354, -0.337094)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_trceg")
+volume_db = 10.0
+autoplay = true
+
+[node name="dialogue" parent="." instance=ExtResource("12_eb6dy")]
+
+[node name="js1" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.7614, 1.19209e-07, -17.0009)
+script = ExtResource("13_a8y0u")
+target = NodePath("../phee")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="js1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.437816, 0, -3.16378)
+shape = SubResource("BoxShape3D_trceg")
+
+[node name="phee" parent="." instance=ExtResource("8_tipki")]
+
+[connection signal="body_entered" from="js1" to="js1" method="_on_body_entered"]

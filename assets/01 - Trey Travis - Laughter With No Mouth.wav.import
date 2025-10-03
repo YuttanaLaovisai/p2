@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ci1p0b68e5b17"
+path="res://.godot/imported/01 - Trey Travis - Laughter With No Mouth.wav-d4686f345c7d81bd4d71ccbbdcf61523.sample"
+
+[deps]
+
+source_file="res://assets/01 - Trey Travis - Laughter With No Mouth.wav"
+dest_files=["res://.godot/imported/01 - Trey Travis - Laughter With No Mouth.wav-d4686f345c7d81bd4d71ccbbdcf61523.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

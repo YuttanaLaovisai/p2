@@ -1,0 +1,119 @@
+[gd_scene load_steps=13 format=3 uid="uid://cabmk5vicvom7"]
+
+[ext_resource type="Script" uid="uid://bhtmwfpahi5t8" path="res://scripts/start.gd" id="1_0auqf"]
+[ext_resource type="PackedScene" uid="uid://bmjvr6kv4a1tu" path="res://scenes/abandoned_house.tscn" id="1_u80x2"]
+[ext_resource type="Shader" uid="uid://bxjdnbffy5er6" path="res://shader/main.gdshader" id="2_bodal"]
+[ext_resource type="Texture2D" uid="uid://cwl833bi2mjlm" path="res://assets/Skybox.png" id="3_bodal"]
+[ext_resource type="Script" uid="uid://b6ir5k1mwwxhu" path="res://scripts/camera_3d.gd" id="3_kdmts"]
+[ext_resource type="FontFile" uid="uid://bfg6blf2osrf6" path="res://assets/Ghastly Panic.ttf" id="6_4ge6i"]
+[ext_resource type="PackedScene" uid="uid://dv7o4h0nxtxws" path="res://scenes/dust.tscn" id="6_y16t7"]
+[ext_resource type="AudioStream" uid="uid://ci1p0b68e5b17" path="res://assets/01 - Trey Travis - Laughter With No Mouth.wav" id="8_8itgj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kdmts"]
+shader = ExtResource("2_bodal")
+shader_parameter/desaturation = 0.6
+shader_parameter/sepia_strength = 0.4
+shader_parameter/noise_strength = 0.15
+shader_parameter/noise_scale = 50.0
+shader_parameter/time_speed = 1.5
+shader_parameter/scanline_strength = 0.05
+shader_parameter/vignette_strength = 0.8
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8itgj"]
+panorama = ExtResource("3_bodal")
+
+[sub_resource type="Sky" id="Sky_choun"]
+sky_material = SubResource("PanoramaSkyMaterial_8itgj")
+
+[sub_resource type="Environment" id="Environment_tn317"]
+background_mode = 2
+sky = SubResource("Sky_choun")
+ambient_light_source = 3
+ambient_light_color = Color(0.153894, 0.274812, 0.403424, 1)
+glow_intensity = 8.0
+fog_enabled = true
+fog_mode = 1
+fog_light_energy = 0.0
+fog_density = 1.0
+fog_aerial_perspective = 0.89
+fog_sky_affect = 0.79
+
+[node name="start" type="Node3D"]
+script = ExtResource("1_0auqf")
+
+[node name="Abandoned_House" parent="." instance=ExtResource("1_u80x2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.637, 0, 94.793)
+
+[node name="filter" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_kdmts")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.999186, -0.0403272, -0.000456772, 0.0394911, 0.976046, 0.21395, -0.00818218, -0.213794, 0.976844, -2.2655, 2.04883, -2.57585)
+script = ExtResource("3_kdmts")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
+shadow_enabled = true
+shadow_bias = 10.0
+spot_range = 8.839
+spot_attenuation = -0.23
+spot_angle = 38.84
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tn317")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.729578, -0.573149, -0.373118, 0.445878, -0.0150488, 0.894967, -0.518564, -0.819313, 0.244575, -4.93839, 16.8988, 2.53228)
+light_energy = 0.055
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="name" type="Label" parent="CanvasLayer"]
+offset_left = 120.0
+offset_top = 120.0
+offset_right = 725.0
+offset_bottom = 304.0
+theme_override_fonts/font = ExtResource("6_4ge6i")
+theme_override_font_sizes/font_size = 200
+text = "Silent Village"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 120.0
+offset_top = 89.0
+offset_right = 440.0
+offset_bottom = 274.0
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="play" type="Button" parent="CanvasLayer/VBoxContainer"]
+visibility_layer = 2
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "play"
+
+[node name="exit" type="Button" parent="CanvasLayer/VBoxContainer"]
+visibility_layer = 2
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "exit"
+
+[node name="dust" parent="." instance=ExtResource("6_y16t7")]
+transform = Transform3D(-9.35424e-08, 2.14, 0, -2.14, -9.35424e-08, 0, 0, 0, 2.14, -2.32261, 13.3392, -15.8925)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_8itgj")
+volume_db = 5.0
+autoplay = true
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/exit" to="." method="_on_exit_pressed"]

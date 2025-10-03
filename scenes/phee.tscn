@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://qhpy4olca2cu"]
+
+[ext_resource type="PackedScene" uid="uid://pl2yh5vnhpr5" path="res://assets/phee.glb" id="1_a3rj2"]
+[ext_resource type="Script" uid="uid://c70j57qm5edpg" path="res://scripts/phee.gd" id="1_y2g8d"]
+[ext_resource type="AudioStream" uid="uid://bgjn5waon24dq" path="res://assets/ZombieHorrorPackageFree/MP3/VO/Zombie01/Zombie001_Attack_A_001.mp3" id="3_oncho"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oncho"]
+radius = 0.0868385
+height = 0.188234
+
+[node name="phee" type="CharacterBody3D"]
+floor_max_angle = 1.55334
+script = ExtResource("1_y2g8d")
+
+[node name="phee" parent="." instance=ExtResource("1_a3rj2")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.103163, 0)
+shape = SubResource("CapsuleShape3D_oncho")
+
+[node name="audio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_oncho")

@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1oeoa4crkihi"]
+
+[ext_resource type="Script" uid="uid://bv3iu168j0o2o" path="res://scripts/dialogue.gd" id="1_8mft6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jwyou"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.462745)
+
+[node name="dialogue" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_8mft6")
+
+[node name="DialogueLabel" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -164.0
+offset_right = 20.0
+offset_bottom = -118.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_jwyou")

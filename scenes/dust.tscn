@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dv7o4h0nxtxws"]
+
+[sub_resource type="Gradient" id="Gradient_mb6vx"]
+offsets = PackedFloat32Array(0, 0.508197, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.779291, 0.779291, 0.779291, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_c43mm"]
+gradient = SubResource("Gradient_mb6vx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c43mm"]
+emission_shape_scale = Vector3(1, 10, 10)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.3
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_c43mm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mb6vx"]
+metallic_specular = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_n7s5k"]
+material = SubResource("StandardMaterial3D_mb6vx")
+radius = 0.025
+height = 0.05
+
+[node name="dust" type="GPUParticles3D"]
+transform = Transform3D(-9.35424e-08, 2.14, 0, -2.14, -9.35424e-08, 0, 0, 0, 2.14, 0, 0, 0)
+amount = 500
+lifetime = 100.0
+preprocess = 20.0
+speed_scale = 3.83
+process_material = SubResource("ParticleProcessMaterial_c43mm")
+draw_pass_1 = SubResource("SphereMesh_n7s5k")

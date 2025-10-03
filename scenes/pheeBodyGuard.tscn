@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://but4u6xjkaua7"]
+
+[ext_resource type="Script" uid="uid://cgm6l7hlentwj" path="res://scripts/pheeBodyGuard.gd" id="1_na4he"]
+[ext_resource type="AudioStream" uid="uid://d074vn0nvm0h4" path="res://assets/ZombieHorrorPackageFree/MP3/VO/Zombie01/Zombie001_Idle_A_001.mp3" id="2_n8be5"]
+[ext_resource type="PackedScene" uid="uid://pl2yh5vnhpr5" path="res://assets/phee.glb" id="2_qdrw7"]
+[ext_resource type="AudioStream" uid="uid://bgjn5waon24dq" path="res://assets/ZombieHorrorPackageFree/MP3/VO/Zombie01/Zombie001_Attack_A_001.mp3" id="3_0paqp"]
+[ext_resource type="AudioStream" uid="uid://cehkuhwe6sq6s" path="res://assets/ZombieHorrorPackageFree/MP3/VO/Zombie01/Zombie001_Idle_A_002.mp3" id="3_mknl3"]
+[ext_resource type="AudioStream" uid="uid://bmxggoqxpnfyv" path="res://assets/ZombieHorrorPackageFree/MP3/VO/Zombie01/Zombie001_Idle_A_003.mp3" id="4_e5wdj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oncho"]
+radius = 0.0868385
+height = 0.188234
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n8be5"]
+radius = 0.356561
+height = 1.97739
+
+[node name="pheeBodyGuard" type="CharacterBody3D"]
+floor_max_angle = 1.55334
+script = ExtResource("1_na4he")
+speed = 5.0
+sounds = Array[AudioStream]([ExtResource("2_n8be5"), ExtResource("3_mknl3"), ExtResource("4_e5wdj")])
+
+[node name="phee" parent="." instance=ExtResource("2_qdrw7")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.103163, 0)
+shape = SubResource("CapsuleShape3D_oncho")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_0paqp")
+max_distance = 10.0
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.359011, 0)
+shape = SubResource("CapsuleShape3D_n8be5")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
