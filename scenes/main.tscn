@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cbr6sqaig57ht"]
+[gd_scene load_steps=33 format=3 uid="uid://cbr6sqaig57ht"]
 
 [ext_resource type="Script" uid="uid://c8f112m6eeu1d" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dgrsfuexjkvmp" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://to4hoei7kmd2" path="res://scenes/tire.tscn" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://jtlo1wix1vk1" path="res://scenes/fuel.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://qhpy4olca2cu" path="res://scenes/phee.tscn" id="8_tipki"]
+[ext_resource type="AudioStream" uid="uid://b7xafmrr011vt" path="res://assets/car-engine-start-44357.mp3" id="9_0ld40"]
 [ext_resource type="Script" uid="uid://yia56ja0fk0v" path="res://scripts/car_trigger.gd" id="9_85g3d"]
 [ext_resource type="AudioStream" uid="uid://b0agd3oqyaa8g" path="res://assets/car-engine-ignition-fail-352768.mp3" id="9_jkv2x"]
 [ext_resource type="Shader" uid="uid://bxjdnbffy5er6" path="res://shader/main.gdshader" id="10_choun"]
@@ -117,7 +118,6 @@ environment = SubResource("Environment_tefeu")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.729578, -0.573149, -0.373118, 0.445878, -0.0150488, 0.894967, -0.518564, -0.819313, 0.244575, -4.93839, 16.8988, 2.53228)
-visible = false
 
 [node name="Abandoned_House" parent="." instance=ExtResource("4_jyhfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8354, 0, 98.57)
@@ -166,6 +166,9 @@ script = ExtResource("9_85g3d")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52858, -0.430318, -3.34838)
 shape = SubResource("BoxShape3D_choun")
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="car_trigger/CollisionShape3D"]
+stream = ExtResource("9_0ld40")
+
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="car_trigger"]
 stream = ExtResource("9_jkv2x")
 
@@ -189,7 +192,7 @@ text = "“Need tires and fuel”"
 transform = Transform3D(-9.35424e-08, 2.14, 0, -2.14, -9.35424e-08, 0, 0, 0, 2.14, 0, 13.8542, -12.0473)
 
 [node name="player" parent="." instance=ExtResource("1_o5qli")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.53845, -1.00354, -0.337094)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.55311, -1.00354, -0.337094)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("13_trceg")
