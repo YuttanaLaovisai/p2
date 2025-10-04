@@ -3,7 +3,7 @@ extends Area3D
 var is_js = false
 
 func _on_body_entered(body: Node3D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and !is_js:
 		$js.visible = true
 		is_js = true
 		$AudioStreamPlayer2D.play()
