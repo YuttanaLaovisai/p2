@@ -135,6 +135,7 @@ environment = SubResource("Environment_tefeu")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.729578, -0.573149, -0.373118, 0.445878, -0.0150488, 0.894967, -0.518564, -0.819313, 0.244575, -4.93839, 16.8988, 2.53228)
+visible = false
 
 [node name="Abandoned_House" parent="." instance=ExtResource("4_jyhfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8354, 0, 98.57)
