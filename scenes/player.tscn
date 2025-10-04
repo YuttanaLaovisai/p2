@@ -18,6 +18,7 @@ bg_color = Color(1, 1, 1, 1)
 [node name="player" type="CharacterBody3D" groups=["player"]]
 floor_max_angle = 1.55334
 script = ExtResource("1_g2els")
+stamina_drain = 40
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78247, 0)
@@ -53,7 +54,8 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 24
 text = "Find the car parts 
 – Tires: 2/4
-– Fuel: 0/1."
+– Fuel: 0/1
+– Engine: 0/1"
 
 [node name="objective" type="Label" parent="."]
 anchors_preset = 1
@@ -112,3 +114,32 @@ grow_vertical = 2
 [node name="Crosshair180" type="Sprite2D" parent="crosshair2"]
 scale = Vector2(0.453125, 0.453125)
 texture = ExtResource("4_dqkch")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -110.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="key" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "keys"
+
+[node name="basement" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Basement key: 1"
+
+[node name="attic" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Attic key: 1"

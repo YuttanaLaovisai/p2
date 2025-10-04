@@ -1,16 +1,14 @@
 extends Area3D
 
-#func _on_js1_body_entered(body: Node3D) -> void:
-	#print("entered:", body.name)
-	#if body.is_in_group("player"):
-		#print("p")
-		#$"../phee".dash_forward()
+@export var target: Node
 
+@export var show_time = 0.2
 
 func _on_body_entered(body: Node3D) -> void:
-	print("entered:", body.name)
 	if body.is_in_group("player"):
-		print("p")
-		$"../phee".dash_forward()
-		await  get_tree().create_timer(0.2).timeout
-		$"../phee".queue_free()
+		if target != null:
+			target.visible = true
+			target.dash_forward()
+			target.play_sound(show_time)
+			await  get_tree().create_timer(show_time).timeout
+			target.queue_free()

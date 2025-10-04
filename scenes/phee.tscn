@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://pl2yh5vnhpr5" path="res://assets/phee.glb" id="1_a3rj2"]
 [ext_resource type="Script" uid="uid://c70j57qm5edpg" path="res://scripts/phee.gd" id="1_y2g8d"]
-[ext_resource type="AudioStream" uid="uid://bgjn5waon24dq" path="res://assets/ZombieHorrorPackageFree/MP3/VO/Zombie01/Zombie001_Attack_A_001.mp3" id="3_oncho"]
+[ext_resource type="AudioStream" uid="uid://dkyx7f5bg5vpy" path="res://assets/ZombieHorrorPackageFree/MP3/Footsteps/Footsteps_Zombie_concret_001.mp3" id="3_oncho"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oncho"]
 radius = 0.0868385
@@ -20,3 +20,5 @@ shape = SubResource("CapsuleShape3D_oncho")
 
 [node name="audio" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_oncho")
+pitch_scale = 8.0
+parameters/looping = true

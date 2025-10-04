@@ -40,6 +40,12 @@ func _input(event: InputEvent) -> void:
 		pivot.rotation.x = pitch
 
 func _process(delta: float) -> void:
+	if GlobalInventory.attic != 0 or GlobalInventory.basement != 0:
+		$VBoxContainer/key.visible = true
+		if GlobalInventory.basement != 0:
+			$VBoxContainer/basement.visible = true
+		if GlobalInventory.attic != 0:
+			$VBoxContainer/attic.visible = true
 	if !Globalkey.is_on:
 		$objective.visible = false
 		$part.visible = false
@@ -47,7 +53,7 @@ func _process(delta: float) -> void:
 		$objective.visible = true
 		$part.visible = true
 
-	part.text = "Find all the car parts \n– Tires: "+str(GlobalInventory.tire)+"/4\n– Fuel: "+str(GlobalInventory.fuel)+"/1."
+	part.text = "Find all the car parts \n– Tires: "+str(GlobalInventory.tire)+"/4\n– Fuel: "+str(GlobalInventory.fuel)+"/1\n– Engine: "+str(GlobalInventory.v8)+"/1"
 
 	if Input.is_action_pressed("shift") and stamina > 0:
 		if !is_running:
