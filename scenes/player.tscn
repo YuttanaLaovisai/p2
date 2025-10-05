@@ -16,7 +16,9 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 bg_color = Color(1, 1, 1, 1)
 
 [node name="player" type="CharacterBody3D" groups=["player"]]
+floor_stop_on_slope = false
 floor_max_angle = 1.55334
+floor_snap_length = 0.0
 script = ExtResource("1_g2els")
 stamina_drain = 40
 
@@ -42,32 +44,30 @@ spot_angle = 34.1754
 [node name="AudioListener3D" type="AudioListener3D" parent="Pivot/Camera3D"]
 current = true
 
-[node name="part" type="Label" parent="."]
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -322.0
-offset_top = 155.0
-offset_right = 2.0
-offset_bottom = 263.0
+offset_left = -260.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = 233.0
 grow_horizontal = 0
+
+[node name="objective" type="Label" parent="VBoxContainer2"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Objective"
+
+[node name="part" type="Label" parent="VBoxContainer2"]
+visible = false
+layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Find the car parts 
 – Tires: 2/4
 – Fuel: 0/1
 – Engine: 0/1"
-
-[node name="objective" type="Label" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -267.0
-offset_top = 115.0
-offset_right = -158.0
-offset_bottom = 149.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 24
-text = "Objective"
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_g2els")
@@ -121,10 +121,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -203.0
-offset_top = -120.0
-offset_right = -13.0
-offset_bottom = -10.0
+offset_left = -240.0
+offset_top = -160.0
+offset_right = -50.0
+offset_bottom = -50.0
 grow_horizontal = 0
 grow_vertical = 0
 
@@ -145,3 +145,13 @@ visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Attic key: 1"
+
+[node name="StuckAlert" type="Label" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -35.0
+offset_right = 153.0
+offset_bottom = -12.0
+grow_vertical = 0
+text = "Press [R] to unstuck"

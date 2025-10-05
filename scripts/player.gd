@@ -4,7 +4,7 @@ extends CharacterBody3D
 @onready var camera = $Pivot/Camera3D
 @onready var raycast = $Pivot/Camera3D/RayCast3D
 @onready var crosshair = $crosshair2
-@onready var part = $part
+@onready var part = $VBoxContainer2/part
 @onready var stamina_bar = $ProgressBar
 
 var yaw = 0.0
@@ -40,6 +40,27 @@ func _input(event: InputEvent) -> void:
 		pivot.rotation.x = pitch
 
 func _process(delta: float) -> void:
+	# ==== ระบบกดปุ่มหลุดจากจุดติด ====
+	if Input.is_action_just_pressed("r"):
+		var offset_dirs = [
+			Vector3(1, 0, 0),
+			Vector3(-1, 0, 0),
+			Vector3(0, 0, 1),
+			Vector3(0, 0, -1),
+			Vector3(1, 0, 1).normalized(),
+			Vector3(-1, 0, -1).normalized(),
+			Vector3(-1, 0, 1).normalized(),
+			Vector3(1, 0, -1).normalized(),
+		]
+
+		for dir in offset_dirs:
+			var new_pos = global_transform.origin + dir * 0.5   # วาร์ปออก 0.5 เมตร
+			var test_transform = Transform3D(global_transform.basis, new_pos)
+			if not test_move(test_transform, Vector3.ZERO):
+				global_transform.origin = new_pos
+				print("✅ Unstuck to:", new_pos)
+				break
+
 	if GlobalInventory.attic != 0 or GlobalInventory.basement != 0:
 		$VBoxContainer/key.visible = true
 		if GlobalInventory.basement != 0:
@@ -47,11 +68,11 @@ func _process(delta: float) -> void:
 		if GlobalInventory.attic != 0:
 			$VBoxContainer/attic.visible = true
 	if !Globalkey.is_on:
-		$objective.visible = false
-		$part.visible = false
+		$VBoxContainer2/objective.visible = false
+		$VBoxContainer2/part.visible = false
 	else:
-		$objective.visible = true
-		$part.visible = true
+		$VBoxContainer2/objective.visible = true
+		$VBoxContainer2/part.visible = true
 
 	part.text = "Find all the car parts \n– Tires: "+str(GlobalInventory.tire)+"/4\n– Fuel: "+str(GlobalInventory.fuel)+"/1\n– Engine: "+str(GlobalInventory.v8)+"/1"
 
@@ -110,3 +131,5 @@ func _physics_process(delta: float) -> void:
 			collision.interact()
 	else:
 		crosshair.visible = false
+	
+	
