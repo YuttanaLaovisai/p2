@@ -30,6 +30,7 @@ shape = SubResource("CapsuleShape3D_oncho")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_0paqp")
+volume_db = -10.0
 max_distance = 10.0
 
 [node name="Area3D" type="Area3D" parent="."]

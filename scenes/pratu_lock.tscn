@@ -5,7 +5,7 @@
 [ext_resource type="ArrayMesh" uid="uid://c3a2lwcrotvpr" path="res://assets/ushobj.obj" id="3_2gims"]
 [ext_resource type="AudioStream" uid="uid://43vvu7px15ah" path="res://assets/opening-door-411632.mp3" id="4_hnoop"]
 [ext_resource type="AudioStream" uid="uid://dgc8n7yr6ac" path="res://assets/close-door-382723.mp3" id="5_n165y"]
-[ext_resource type="AudioStream" uid="uid://d0ctjtkqyxgn5" path="res://assets/car-door-locking-410996.mp3" id="6_4d5ji"]
+[ext_resource type="AudioStream" uid="uid://e7nv228jncae" path="res://assets/car-door-locking-410996.mp3" id="6_4d5ji"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_feb2k"]
 
