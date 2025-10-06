@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cabmk5vicvom7"]
+[gd_scene load_steps=19 format=3 uid="uid://cabmk5vicvom7"]
 
 [ext_resource type="Script" uid="uid://bhtmwfpahi5t8" path="res://scripts/start.gd" id="1_0auqf"]
 [ext_resource type="PackedScene" uid="uid://bmjvr6kv4a1tu" path="res://scenes/abandoned_house.tscn" id="1_u80x2"]
@@ -8,6 +8,7 @@
 [ext_resource type="FontFile" uid="uid://bfg6blf2osrf6" path="res://assets/Ghastly Panic.ttf" id="6_4ge6i"]
 [ext_resource type="PackedScene" uid="uid://dv7o4h0nxtxws" path="res://scenes/dust.tscn" id="6_y16t7"]
 [ext_resource type="AudioStream" uid="uid://ci1p0b68e5b17" path="res://assets/01 - Trey Travis - Laughter With No Mouth.wav" id="8_8itgj"]
+[ext_resource type="Script" uid="uid://bn382fa0vsitf" path="res://scripts/sens_slider.gd" id="8_m8nf6"]
 [ext_resource type="Script" uid="uid://b26ilmnde50w7" path="res://scripts/sound_slider.gd" id="9_tn317"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kdmts"]
@@ -44,6 +45,14 @@ color = Color(0, 0, 0, 0.427451)
 thickness = 6
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_pgjjs"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_1nvso"]
+color = Color(0, 0, 0, 0.427451)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_gsp51"]
 color = Color(1, 1, 1, 1)
 thickness = 6
 
@@ -195,6 +204,21 @@ min_value = -80.0
 max_value = 20.0
 script = ExtResource("9_tn317")
 
+[node name="sens" type="Label" parent="CanvasLayer/option/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Sensitivity"
+
+[node name="sens_slider" type="HSlider" parent="CanvasLayer/option/VBoxContainer2"]
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_1nvso")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_gsp51")
+min_value = 0.001
+max_value = 0.005
+step = 0.001
+value = 0.005
+script = ExtResource("8_m8nf6")
+
 [node name="back" type="Button" parent="CanvasLayer/option"]
 layout_mode = 1
 anchors_preset = 7
@@ -222,4 +246,5 @@ autoplay = true
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/exit" to="." method="_on_exit_pressed"]
 [connection signal="value_changed" from="CanvasLayer/option/VBoxContainer2/sound_slider" to="CanvasLayer/option/VBoxContainer2/sound_slider" method="_on_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/option/VBoxContainer2/sens_slider" to="CanvasLayer/option/VBoxContainer2/sens_slider" method="_on_value_changed"]
 [connection signal="pressed" from="CanvasLayer/option/back" to="." method="_on_back_pressed"]

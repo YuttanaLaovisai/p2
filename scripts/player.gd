@@ -21,9 +21,13 @@ var current_speed = walk_speed
 
 var is_running = false
 var is_jumping = false
-var sens = 0.002
+var sens
 
 func _ready() -> void:
+	if Engine.has_singleton("GlobalSens"):
+		sens = GlobalSens.get_sensitivity()
+	else:
+		sens = 0.02  # default
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	stamina_bar.max_value = max_stamina
 
@@ -33,13 +37,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		yaw -= event.relative.x * sens
-		pitch -= event.relative.y * sens
+		yaw -= event.relative.x * sens * 0.5
+		pitch -= event.relative.y * sens * 0.5
 		pitch = clamp(pitch, deg_to_rad(-80), deg_to_rad(90))
 		rotation.y = yaw
 		pivot.rotation.x = pitch
 
 func _process(delta: float) -> void:
+	sens = GlobalSens.get_sensitivity()
 	# ==== ระบบกดปุ่มหลุดจากจุดติด ====
 	if Input.is_action_just_pressed("r"):
 		var offset_dirs = [

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://djqufa0ofllns"]
+[gd_scene load_steps=6 format=3 uid="uid://djqufa0ofllns"]
 
 [ext_resource type="Script" uid="uid://dptxf6721xtiw" path="res://scripts/pause.gd" id="1_f1d2v"]
 [ext_resource type="Script" uid="uid://b26ilmnde50w7" path="res://scripts/sound_slider.gd" id="2_r8yp4"]
+[ext_resource type="Script" uid="uid://bn382fa0vsitf" path="res://scripts/sens_slider.gd" id="3_m0klm"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_m0klm"]
 color = Color(0, 0, 0, 0.427451)
@@ -97,7 +98,7 @@ offset_bottom = 27.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="option/VBoxContainer2"]
+[node name="volume" type="Label" parent="option/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Master volume"
@@ -109,6 +110,21 @@ theme_override_styles/grabber_area = SubResource("StyleBoxLine_aicil")
 min_value = -80.0
 max_value = 20.0
 script = ExtResource("2_r8yp4")
+
+[node name="sens" type="Label" parent="option/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Sensitivity"
+
+[node name="sens_slider" type="HSlider" parent="option/VBoxContainer2"]
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_m0klm")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_aicil")
+min_value = 0.001
+max_value = 0.005
+step = 0.001
+value = 0.005
+script = ExtResource("3_m0klm")
 
 [node name="back" type="Button" parent="option"]
 layout_mode = 1
@@ -146,4 +162,5 @@ R – Unstuck (if you get stuck on objects)"
 [connection signal="pressed" from="pause/VBoxContainer/option" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="pause/VBoxContainer/exit" to="." method="_on_exit_pressed"]
 [connection signal="value_changed" from="option/VBoxContainer2/sound_slider" to="option/VBoxContainer2/sound_slider" method="_on_value_changed"]
+[connection signal="value_changed" from="option/VBoxContainer2/sens_slider" to="option/VBoxContainer2/sens_slider" method="_on_value_changed"]
 [connection signal="pressed" from="option/back" to="." method="_on_back_pressed"]

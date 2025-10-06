@@ -22,6 +22,7 @@ GlobalInventory="*res://scripts/global_inventory.gd"
 SceneTransition="*res://scenes/scene_transition.tscn"
 GlobalSound="*res://scripts/GlobalSound.gd"
 Globalkey="*res://scripts/Globalkey.gd"
+GlobalSens="*res://scripts/Global_sens.gd"
 
 [display]
 
