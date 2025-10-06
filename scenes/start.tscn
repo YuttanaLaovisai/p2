@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cabmk5vicvom7"]
+[gd_scene load_steps=16 format=3 uid="uid://cabmk5vicvom7"]
 
 [ext_resource type="Script" uid="uid://bhtmwfpahi5t8" path="res://scripts/start.gd" id="1_0auqf"]
 [ext_resource type="PackedScene" uid="uid://bmjvr6kv4a1tu" path="res://scenes/abandoned_house.tscn" id="1_u80x2"]
@@ -8,6 +8,7 @@
 [ext_resource type="FontFile" uid="uid://bfg6blf2osrf6" path="res://assets/Ghastly Panic.ttf" id="6_4ge6i"]
 [ext_resource type="PackedScene" uid="uid://dv7o4h0nxtxws" path="res://scenes/dust.tscn" id="6_y16t7"]
 [ext_resource type="AudioStream" uid="uid://ci1p0b68e5b17" path="res://assets/01 - Trey Travis - Laughter With No Mouth.wav" id="8_8itgj"]
+[ext_resource type="Script" uid="uid://b26ilmnde50w7" path="res://scripts/sound_slider.gd" id="9_tn317"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kdmts"]
 shader = ExtResource("2_bodal")
@@ -37,6 +38,14 @@ fog_light_energy = 0.0
 fog_density = 1.0
 fog_aerial_perspective = 0.89
 fog_sky_affect = 0.79
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_m8nf6"]
+color = Color(0, 0, 0, 0.427451)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_pgjjs"]
+color = Color(1, 1, 1, 1)
+thickness = 6
 
 [node name="start" type="Node3D"]
 script = ExtResource("1_0auqf")
@@ -101,12 +110,105 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 30
 text = "play"
 
+[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Option"
+
 [node name="exit" type="Button" parent="CanvasLayer/VBoxContainer"]
 visibility_layer = 2
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 30
 text = "exit"
+
+[node name="option" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/option"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.482353)
+
+[node name="control_label" type="Label" parent="CanvasLayer/option"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -305.0
+offset_top = -179.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 22
+text = "W A S D – Move
+Mouse – Look around
+Left Click – Interact / Pick up
+R – Unstuck (if you get stuck on objects)"
+
+[node name="Label" type="Label" parent="CanvasLayer/option"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -53.0
+offset_right = 53.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Option"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/option"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.5
+offset_top = -27.0
+offset_right = 440.5
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/option/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Master volume"
+
+[node name="sound_slider" type="HSlider" parent="CanvasLayer/option/VBoxContainer2"]
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_m8nf6")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_pgjjs")
+min_value = -80.0
+max_value = 20.0
+script = ExtResource("9_tn317")
+
+[node name="back" type="Button" parent="CanvasLayer/option"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -38.5
+offset_top = -50.0
+offset_right = 38.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+text = "Back"
 
 [node name="dust" parent="." instance=ExtResource("6_y16t7")]
 transform = Transform3D(-9.35424e-08, 2.14, 0, -2.14, -9.35424e-08, 0, 0, 0, 2.14, -2.32261, 13.3392, -15.8925)
@@ -117,4 +219,7 @@ volume_db = 5.0
 autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/exit" to="." method="_on_exit_pressed"]
+[connection signal="value_changed" from="CanvasLayer/option/VBoxContainer2/sound_slider" to="CanvasLayer/option/VBoxContainer2/sound_slider" method="_on_value_changed"]
+[connection signal="pressed" from="CanvasLayer/option/back" to="." method="_on_back_pressed"]

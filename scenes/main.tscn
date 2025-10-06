@@ -280,7 +280,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.28342, -28.0851)
 curve = SubResource("Curve3D_muem4")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(-0.0416098, -0.0041343, 0.99912, 0, 0.999983, 0.0041379, -0.999133, 0.000172177, -0.0416092, 1.99758, 0.320648, -0.223728)
+transform = Transform3D(-0.0416098, -0.0041343, 0.999118, 0, 0.999982, 0.00413789, -0.999133, 0.000172177, -0.0416092, 1.99758, 0.320648, -0.223728)
 
 [node name="pheeBodyGuard" parent="Path3D/PathFollow3D" node_paths=PackedStringArray("pathfollow") instance=ExtResource("16_jbj1t")]
 pathfollow = NodePath("..")

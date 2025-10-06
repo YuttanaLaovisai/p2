@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://djqufa0ofllns"]
+[gd_scene load_steps=5 format=3 uid="uid://djqufa0ofllns"]
 
 [ext_resource type="Script" uid="uid://dptxf6721xtiw" path="res://scripts/pause.gd" id="1_f1d2v"]
+[ext_resource type="Script" uid="uid://b26ilmnde50w7" path="res://scripts/sound_slider.gd" id="2_r8yp4"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_m0klm"]
+color = Color(0, 0, 0, 0.427451)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_aicil"]
+color = Color(1, 1, 1, 1)
+thickness = 6
 
 [node name="pause" type="CanvasLayer"]
 script = ExtResource("1_f1d2v")
@@ -13,7 +22,18 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.231373)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="pause" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -28,21 +48,102 @@ grow_vertical = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 15
 
-[node name="resume" type="Button" parent="VBoxContainer"]
+[node name="resume" type="Button" parent="pause/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Resume"
 
-[node name="reset" type="Button" parent="VBoxContainer"]
+[node name="option" type="Button" parent="pause/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Restart"
+text = "Option"
 
-[node name="exit" type="Button" parent="VBoxContainer"]
+[node name="exit" type="Button" parent="pause/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Exit"
 
-[connection signal="pressed" from="VBoxContainer/resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="VBoxContainer/reset" to="." method="_on_reset_pressed"]
-[connection signal="pressed" from="VBoxContainer/exit" to="." method="_on_exit_pressed"]
+[node name="option" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="option"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -53.0
+offset_right = 53.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Option"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="option"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.5
+offset_top = -27.0
+offset_right = 440.5
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="option/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Master volume"
+
+[node name="sound_slider" type="HSlider" parent="option/VBoxContainer2"]
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_m0klm")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_aicil")
+min_value = -80.0
+max_value = 20.0
+script = ExtResource("2_r8yp4")
+
+[node name="back" type="Button" parent="option"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -38.5
+offset_top = -50.0
+offset_right = 38.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+text = "Back"
+
+[node name="control_label" type="Label" parent="option"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -179.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 22
+text = "W A S D – Move
+Mouse – Look around
+Left Click – Interact / Pick up
+R – Unstuck (if you get stuck on objects)"
+
+[connection signal="pressed" from="pause/VBoxContainer/resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="pause/VBoxContainer/option" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="pause/VBoxContainer/exit" to="." method="_on_exit_pressed"]
+[connection signal="value_changed" from="option/VBoxContainer2/sound_slider" to="option/VBoxContainer2/sound_slider" method="_on_value_changed"]
+[connection signal="pressed" from="option/back" to="." method="_on_back_pressed"]
