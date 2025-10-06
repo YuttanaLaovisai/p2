@@ -1,4 +1,4 @@
-Aโครงงาน Game 3D
+โครงงาน Game 3D
 
 วิชา CP352203-Computer Game Development   ภาคการศึกษาต้น ปีการศึกษา 2568
 
