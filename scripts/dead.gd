@@ -8,4 +8,5 @@ func _ready() -> void:
 	GlobalInventory.fuel = 0
 	GlobalInventory.tire = 0
 	GlobalInventory.v8 = 0
+	Globalkey.is_on = false
 	SceneTransition.chang_scene("res://scenes/start.tscn")
