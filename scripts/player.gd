@@ -114,15 +114,7 @@ func _physics_process(delta: float) -> void:
 		can_run = true
 		walk_speed = 2
 	
-	if is_running:
-		stamina -= stamina_drain * delta
-		if stamina <= 0:
-			stamina = 0
-			is_running = false
-			$AudioStreamPlayer3D.pitch_scale /= 1.5
-	else:
-		if stamina < max_stamina:
-			stamina += stamina_regen * delta
+	
 
 	current_speed = run_speed if is_running else walk_speed
 
@@ -139,6 +131,16 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("a", "d", "w", "s")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
+	if is_running and direction.length() > 0.1:
+		stamina -= stamina_drain * delta
+		if stamina <= 0:
+			stamina = 0
+			is_running = false
+			$AudioStreamPlayer3D.pitch_scale /= 1.5
+	else:
+		if stamina < max_stamina:
+			stamina += stamina_regen * delta
+	
 	if input_dir != Vector2.ZERO:
 		if !$AudioStreamPlayer3D.playing:
 			$AudioStreamPlayer3D.play()
@@ -155,7 +157,6 @@ func _physics_process(delta: float) -> void:
 		crosshair.visible = true
 		if Input.is_action_just_pressed("click"):
 			collision.interact()
-			GlobalSound.play_sound("res://assets/item-pickup-37089.mp3")
 	else:
 		crosshair.visible = false
 	

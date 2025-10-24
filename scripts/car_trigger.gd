@@ -6,6 +6,7 @@ func interact():
 	var player = get_tree().get_first_node_in_group("player")
 	print("DEBUG >> IsHolding =", IsHolding.is_holding)
 	if IsHolding.is_holding:
+		GlobalSound.play_sound("res://assets/item-pickup-37089.mp3")
 		# ถ้ามีของในมือ → ลบทิ้ง
 		if IsHolding.item_name == "tire":
 			GlobalInventory.tire += 1
@@ -22,13 +23,13 @@ func interact():
 			SceneTransition.chang_scene("res://scenes/ending.tscn")
 		else:
 			alert.visible = true
-			alert.text = "Part installed! Keep finding the rest."
+			alert.text = "Part installed."
 			await get_tree().create_timer(2).timeout
 			alert.visible = false
 	else:
 		if !alert.visible:
 			alert.visible = true
 			GlobalSound.play_sound("res://assets/car-engine-ignition-fail-352768.mp3")
-			alert.text = "You have nothing to install!"
+			alert.text = "It's still not enough... I need more parts."
 			await get_tree().create_timer(2).timeout
 			alert.visible = false
