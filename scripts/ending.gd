@@ -10,6 +10,12 @@ var typing := false
 func _ready():
 	start_typing(text_to_show)
 	await get_tree().create_timer(14).timeout
+	GlobalInventory.attic = 0
+	GlobalInventory.basement = 0
+	GlobalInventory.fuel = 0
+	GlobalInventory.tire = 0
+	GlobalInventory.v8 = 0
+	Globalkey.is_on = false
 	get_tree().change_scene_to_file("res://scenes/start.tscn")
 
 func start_typing(new_text: String):

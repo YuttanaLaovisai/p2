@@ -49,4 +49,10 @@ func _on_back_pressed() -> void:
 # ปุ่ม "ออก"
 func _on_exit_pressed() -> void:
 	get_tree().paused = false
+	GlobalInventory.attic = 0
+	GlobalInventory.basement = 0
+	GlobalInventory.fuel = 0
+	GlobalInventory.tire = 0
+	GlobalInventory.v8 = 0
+	Globalkey.is_on = false
 	get_tree().change_scene_to_file("res://scenes/start.tscn")

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://brclxjr67yj0w"]
+
+[ext_resource type="ArrayMesh" uid="uid://dye4ysw3tumx1" path="res://assets/Tire.obj" id="1_yoigf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ydr8n"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="Tire_holded" type="MeshInstance3D"]
+transform = Transform3D(-1.74846e-09, 0, 0.04, 0, 0.04, 0, -0.04, 0, -1.74846e-09, 0, 0, 0)
+layers = 2
+material_override = SubResource("StandardMaterial3D_ydr8n")
+mesh = ExtResource("1_yoigf")

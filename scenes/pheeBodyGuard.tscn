@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://but4u6xjkaua7"]
+[gd_scene load_steps=10 format=3 uid="uid://but4u6xjkaua7"]
 
 [ext_resource type="Script" uid="uid://cgm6l7hlentwj" path="res://scripts/pheeBodyGuard.gd" id="1_na4he"]
 [ext_resource type="AudioStream" uid="uid://d074vn0nvm0h4" path="res://assets/ZombieHorrorPackageFree/MP3/VO/Zombie01/Zombie001_Idle_A_001.mp3" id="2_n8be5"]
@@ -11,14 +11,17 @@
 radius = 0.0868385
 height = 0.188234
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n8be5"]
-radius = 0.356561
-height = 1.97739
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_n8be5"]
+height = 1.0
+radius = 0.837891
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mknl3"]
+height = 1.0
+radius = 3.0
 
 [node name="pheeBodyGuard" type="CharacterBody3D"]
 floor_max_angle = 1.55334
 script = ExtResource("1_na4he")
-speed = 5.0
 sounds = Array[AudioStream]([ExtResource("2_n8be5"), ExtResource("3_mknl3"), ExtResource("4_e5wdj")])
 
 [node name="phee" parent="." instance=ExtResource("2_qdrw7")]
@@ -33,10 +36,18 @@ stream = ExtResource("3_0paqp")
 volume_db = -10.0
 max_distance = 10.0
 
+[node name="Area3D2" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.496967, 0)
+shape = SubResource("CylinderShape3D_n8be5")
+
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.359011, 0)
-shape = SubResource("CapsuleShape3D_n8be5")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.441836, 0)
+shape = SubResource("CylinderShape3D_mknl3")
 
+[connection signal="body_entered" from="Area3D2" to="." method="_on_area_3d_2_body_entered"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

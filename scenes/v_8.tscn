@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxgteh8f35vgm"]
+[gd_scene load_steps=7 format=3 uid="uid://dxgteh8f35vgm"]
 
 [ext_resource type="Script" uid="uid://db4toaj53aakf" path="res://scripts/v_8.gd" id="1_e63by"]
 [ext_resource type="Texture2D" uid="uid://ctjno82bs784y" path="res://assets/V8_Engine_Block_v1_L1.123ccf7ddc99-9270-4993-adf6-eb659578da6e/13475_V8_Engine_Block_diff.jpg" id="2_gbse4"]
+[ext_resource type="PackedScene" uid="uid://cb81v84s6vudk" path="res://scenes/v8_holded.tscn" id="2_h4g4k"]
 [ext_resource type="ArrayMesh" uid="uid://da426gxhar6mv" path="res://assets/V8_Engine_Block_v1_L1.123ccf7ddc99-9270-4993-adf6-eb659578da6e/13475_V8_Engine_Block_v1_l1.obj" id="3_h4g4k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3uah2"]
@@ -13,6 +14,7 @@ data = PackedVector3Array(-18.7306, 14.2782, 0.5831, -18.3968, 13.7793, 0.8928, 
 [node name="v8" type="StaticBody3D"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 script = ExtResource("1_e63by")
+item_scene = ExtResource("2_h4g4k")
 
 [node name="13475V8EngineBlockV1L1" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.11, 0, 0, 0, -4.80825e-09, 0.11, 0, -0.11, -4.80825e-09, 0, 0, 0)

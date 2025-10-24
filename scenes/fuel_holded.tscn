@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgva0ynqhifcf"]
+
+[ext_resource type="Texture2D" uid="uid://bqbhhc1vqd60t" path="res://assets/gas_can_0.png" id="1_ur4th"]
+[ext_resource type="ArrayMesh" uid="uid://ca3p75fcafly0" path="res://assets/gas_can.obj" id="2_hwl6q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7lds8"]
+albedo_texture = ExtResource("1_ur4th")
+
+[node name="fuel holded" type="MeshInstance3D"]
+transform = Transform3D(1.35, 0, 0, 0, 1.35, 0, 0, 0, 1.35, 0, 0.629839, 0)
+material_override = SubResource("StandardMaterial3D_7lds8")
+mesh = ExtResource("2_hwl6q")

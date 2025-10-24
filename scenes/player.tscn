@@ -44,6 +44,9 @@ spot_angle = 34.1754
 [node name="AudioListener3D" type="AudioListener3D" parent="Pivot/Camera3D"]
 current = true
 
+[node name="HoldItem" type="Node3D" parent="Pivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.945705, -1.1869)
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
 anchors_preset = 1
 anchor_left = 1.0

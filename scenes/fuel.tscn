@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://jtlo1wix1vk1"]
+[gd_scene load_steps=7 format=3 uid="uid://jtlo1wix1vk1"]
 
 [ext_resource type="Script" uid="uid://kgor2pn70qtw" path="res://scripts/fuel.gd" id="1_vf86o"]
+[ext_resource type="PackedScene" uid="uid://dgva0ynqhifcf" path="res://scenes/fuel_holded.tscn" id="2_col1c"]
 [ext_resource type="Texture2D" uid="uid://bqbhhc1vqd60t" path="res://assets/gas_can_0.png" id="2_e4cwf"]
 [ext_resource type="ArrayMesh" uid="uid://ca3p75fcafly0" path="res://assets/gas_can.obj" id="3_col1c"]
 
@@ -12,6 +13,7 @@ data = PackedVector3Array(-0.25, 0.5312, -0.125, -0.25, 0.5312, 0.125, -0.25, 0.
 
 [node name="fuel" type="StaticBody3D"]
 script = ExtResource("1_vf86o")
+item_scene = ExtResource("2_col1c")
 
 [node name="GasCan" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_x6svm")
