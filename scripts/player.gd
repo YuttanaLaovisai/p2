@@ -6,7 +6,8 @@ extends CharacterBody3D
 @onready var crosshair = $crosshair2
 @onready var part = $VBoxContainer2/part
 @onready var stamina_bar = $ProgressBar
-@onready var hold_point = $Pivot/Camera3D/HoldItem     # จุดที่ถือของ
+@onready var hold_point = $Pivot/Camera3D/HoldItem
+
 var yaw = 0.0
 var pitch = 0.0
 
@@ -23,8 +24,8 @@ var can_run = true
 var is_running = false
 var is_jumping = false
 var sens
-var current_item: Node3D = null    # ของที่ถืออยู่ตอนนี้
-
+var current_item: Node3D = null
+var is_walking = false
 
 # =====================================================
 func _ready() -> void:
@@ -57,14 +58,10 @@ func _process(delta: float) -> void:
 	# ==== ปุ่ม R เพื่อหลุดจากจุดติด ====
 	if Input.is_action_just_pressed("r"):
 		var offset_dirs = [
-			Vector3(1, 0, 0),
-			Vector3(-1, 0, 0),
-			Vector3(0, 0, 1),
-			Vector3(0, 0, -1),
-			Vector3(1, 0, 1).normalized(),
-			Vector3(-1, 0, -1).normalized(),
-			Vector3(-1, 0, 1).normalized(),
-			Vector3(1, 0, -1).normalized(),
+			Vector3(1, 0, 0), Vector3(-1, 0, 0),
+			Vector3(0, 0, 1), Vector3(0, 0, -1),
+			Vector3(1, 0, 1).normalized(), Vector3(-1, 0, -1).normalized(),
+			Vector3(-1, 0, 1).normalized(), Vector3(1, 0, -1).normalized(),
 		]
 		for dir in offset_dirs:
 			var new_pos = global_transform.origin + dir * 0.5
@@ -74,7 +71,7 @@ func _process(delta: float) -> void:
 				print("✅ Unstuck to:", new_pos)
 				break
 
-	# ==== ระบบ UI Key และ Objective ====
+	# UI objective (เหมือนเดิม)
 	if GlobalInventory.attic != 0 or GlobalInventory.basement != 0:
 		$VBoxContainer/key.visible = true
 		if GlobalInventory.basement != 0:
@@ -91,33 +88,50 @@ func _process(delta: float) -> void:
 
 	part.text = "Find all the car parts \n– Tires: " + str(GlobalInventory.tire) + "/4\n– Fuel: " + str(GlobalInventory.fuel) + "/1\n– Engine: " + str(GlobalInventory.v8) + "/1"
 
-	# ==== ระบบวิ่ง ====
-	if Input.is_action_pressed("shift") and stamina > 0 and can_run:
-		if !is_running:
-			$AudioStreamPlayer3D.pitch_scale *= 1.5
-		is_running = true
-	else:
-		if is_running:
-			$AudioStreamPlayer3D.pitch_scale /= 1.5
-		is_running = false
 
 # =====================================================
 func _physics_process(delta: float) -> void:
 
 	stamina_bar.visible = stamina < max_stamina
 	stamina_bar.value = stamina
-	
+
+	# ===== Holding item slows you down =====
 	if IsHolding.is_holding:
 		can_run = false
 		walk_speed = 1
 	else:
 		can_run = true
 		walk_speed = 2
-	
-	
 
+	var input_dir := Input.get_vector("a", "d", "w", "s")
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	is_walking = direction.length() > 0.1
+
+	# ===== Sprint logic moved here =====
+	if Input.is_action_pressed("shift") and stamina > 0 and can_run and is_walking:
+		if !is_running:
+			$AudioStreamPlayer3D.pitch_scale = 1.5
+		is_running = true
+	else:
+		if is_running:
+			$AudioStreamPlayer3D.pitch_scale = 1.0
+		is_running = false
+
+	# ===== Stamina drain =====
+	if is_running:
+		stamina -= stamina_drain * delta
+		if stamina <= 0:
+			stamina = 0
+			is_running = false
+			$AudioStreamPlayer3D.pitch_scale = 1.0
+	else:
+		if stamina < max_stamina:
+			stamina += stamina_regen * delta
+
+	# ===== Apply speed =====
 	current_speed = run_speed if is_running else walk_speed
 
+	# ===== Gravity & Jump =====
 	if not is_on_floor():
 		velocity += get_gravity() * delta * 2
 
@@ -128,30 +142,19 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor() and !is_jumping and velocity.y < 0:
 		is_jumping = true
 
-	var input_dir := Input.get_vector("a", "d", "w", "s")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
-	if is_running and direction.length() > 0.1:
-		stamina -= stamina_drain * delta
-		if stamina <= 0:
-			stamina = 0
-			is_running = false
-			$AudioStreamPlayer3D.pitch_scale /= 1.5
-	else:
-		if stamina < max_stamina:
-			stamina += stamina_regen * delta
-	
+	# ===== Footstep sound =====
 	if input_dir != Vector2.ZERO:
 		if !$AudioStreamPlayer3D.playing:
 			$AudioStreamPlayer3D.play()
 	else:
 		$AudioStreamPlayer3D.stop()
 
+	# ===== Movement =====
 	velocity.x = direction.x * current_speed
 	velocity.z = direction.z * current_speed
 	move_and_slide()
 
-	# ==== ตรวจจับวัตถุที่ interact ได้ ====
+	# ===== Interact =====
 	var collision = raycast.get_collider()
 	if raycast.is_colliding() and collision != null and collision.has_method("interact"):
 		crosshair.visible = true
@@ -159,8 +162,9 @@ func _physics_process(delta: float) -> void:
 			collision.interact()
 	else:
 		crosshair.visible = false
-	
 
+
+# =====================================================
 func hold_item(scene: PackedScene):
 	if current_item:
 		current_item.queue_free()
@@ -170,9 +174,6 @@ func hold_item(scene: PackedScene):
 	current_item = new_item
 	IsHolding.is_holding = true
 	IsHolding.can_hold = false
-	print("🧤 ถือของแล้ว:", scene)
-	print("isHolding ", IsHolding.is_holding)
-	print("canHolding ", IsHolding.can_hold)
 
 func drop_item():
 	if current_item:
@@ -180,6 +181,3 @@ func drop_item():
 		current_item = null
 		IsHolding.is_holding = false
 		IsHolding.can_hold = true
-		print("🗑️ ของในมือถูกลบออกแล้ว")
-	else:
-		print("❌ ไม่มีของในมือให้ลบ")
