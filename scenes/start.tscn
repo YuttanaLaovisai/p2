@@ -13,8 +13,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kdmts"]
 shader = ExtResource("2_bodal")
-shader_parameter/desaturation = 0.6
-shader_parameter/sepia_strength = 0.4
+shader_parameter/force_grayscale = true
+shader_parameter/darkness = 0.35
+shader_parameter/contrast = 1.2
 shader_parameter/noise_strength = 0.15
 shader_parameter/noise_scale = 50.0
 shader_parameter/time_speed = 1.5
