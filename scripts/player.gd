@@ -7,6 +7,7 @@ extends CharacterBody3D
 @onready var part = $VBoxContainer2/part
 @onready var stamina_bar = $ProgressBar
 @onready var hold_point = $Pivot/Camera3D/HoldItem
+@onready var joystick: Control = $mobile_controller/CanvasLayer/TouchScreenJoystick
 
 var yaw = 0.0
 var pitch = 0.0
@@ -29,12 +30,15 @@ var is_walking = false
 
 # =====================================================
 func _ready() -> void:
+	GlobalSignal.jump_pressed.connect(_on_jump_pressed)
+	GlobalSignal.unstruct.connect(_on_unstruct_pressed)
+
 	$Pivot/Camera3D/RayCast3D.collision_mask &= ~(1 << 1)
 	if Engine.has_singleton("GlobalSens"):
 		sens = GlobalSens.get_sensitivity()
 	else:
 		sens = 0.02
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	stamina_bar.max_value = max_stamina
 
 # =====================================================
@@ -104,6 +108,11 @@ func _physics_process(delta: float) -> void:
 		walk_speed = 2
 
 	var input_dir := Input.get_vector("a", "d", "w", "s")
+	if joystick and joystick.is_pressing and not joystick.is_in_deadzone():
+		var joy_dir = joystick.get_direction()
+		joy_dir.y = joy_dir.y  # กลับแกน Y
+		input_dir += joy_dir     # รวมค่าทิศทางจากจอยด้วย
+	
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	is_walking = direction.length() > 0.1
 
@@ -181,3 +190,22 @@ func drop_item():
 		current_item = null
 		IsHolding.is_holding = false
 		IsHolding.can_hold = true
+
+func _on_jump_pressed():
+	if is_on_floor():
+		velocity.y = 4.5
+
+func _on_unstruct_pressed():
+		var offset_dirs = [
+			Vector3(1, 0, 0), Vector3(-1, 0, 0),
+			Vector3(0, 0, 1), Vector3(0, 0, -1),
+			Vector3(1, 0, 1).normalized(), Vector3(-1, 0, -1).normalized(),
+			Vector3(-1, 0, 1).normalized(), Vector3(1, 0, -1).normalized(),
+		]
+		for dir in offset_dirs:
+			var new_pos = global_transform.origin + dir * 0.5
+			var test_transform = Transform3D(global_transform.basis, new_pos)
+			if not test_move(test_transform, Vector3.ZERO):
+				global_transform.origin = new_pos
+				print("✅ Unstuck to:", new_pos)
+				break

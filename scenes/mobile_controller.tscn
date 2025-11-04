@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0bq0db0mkk1i"]
+
+[ext_resource type="Script" uid="uid://ce45n5g67p5e1" path="res://scripts/mobile_controller.gd" id="1_0bltd"]
+[ext_resource type="Script" uid="uid://crvu00t6tihm1" path="res://addons/touch_screen_joystick/touch_screen_joystick.gd" id="1_lb74v"]
+
+[node name="mobile_controller" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0bltd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TouchScreenJoystick" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 131.0
+offset_top = -169.0
+offset_right = 171.0
+offset_bottom = -129.0
+grow_vertical = 0
+script = ExtResource("1_lb74v")
+metadata/_custom_type_script = "uid://crvu00t6tihm1"
+
+[node name="unstruct" type="Button" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -154.0
+offset_top = -72.0
+offset_right = -80.0
+offset_bottom = -41.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(2, 2)
+text = "unstruct"
+
+[node name="jump" type="Button" parent="CanvasLayer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -163.0
+offset_right = -115.0
+offset_bottom = 31.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "jump"
+
+[connection signal="pressed" from="CanvasLayer/unstruct" to="." method="_on_unstruct_pressed"]
+[connection signal="pressed" from="CanvasLayer/jump" to="." method="_on_jump_pressed"]

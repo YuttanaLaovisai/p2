@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgrsfuexjkvmp"]
+[gd_scene load_steps=9 format=3 uid="uid://dgrsfuexjkvmp"]
 
 [ext_resource type="Script" uid="uid://b6jb64qs2tfxi" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="AudioStream" uid="uid://5sx1524m2546" path="res://assets/footstep-372877.mp3" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://dkxoop8mtj8x6" path="res://White/crosshair001.png" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://djwtgp85crihw" path="res://White/crosshair180.png" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://b0bq0db0mkk1i" path="res://scenes/mobile_controller.tscn" id="5_qlg0r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2brh"]
 radius = 0.272766
@@ -158,3 +159,5 @@ offset_right = 153.0
 offset_bottom = -12.0
 grow_vertical = 0
 text = "Press [R] to unstuck"
+
+[node name="mobile_controller" parent="." instance=ExtResource("5_qlg0r")]
