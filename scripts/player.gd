@@ -32,6 +32,7 @@ var is_walking = false
 func _ready() -> void:
 	GlobalSignal.jump_pressed.connect(_on_jump_pressed)
 	GlobalSignal.unstruct.connect(_on_unstruct_pressed)
+	GlobalSignal.look.connect(_on_touch_look_input)
 
 	$Pivot/Camera3D/RayCast3D.collision_mask &= ~(1 << 1)
 	if Engine.has_singleton("GlobalSens"):
@@ -209,3 +210,10 @@ func _on_unstruct_pressed():
 				global_transform.origin = new_pos
 				print("✅ Unstuck to:", new_pos)
 				break
+
+func _on_touch_look_input(delta: Vector2) -> void:
+	yaw -= delta.x * sens * 0.01
+	pitch -= delta.y * sens * 0.01
+	pitch = clamp(pitch, deg_to_rad(-80), deg_to_rad(90))
+	rotation.y = yaw
+	pivot.rotation.x = pitch
