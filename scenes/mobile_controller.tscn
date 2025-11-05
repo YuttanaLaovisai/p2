@@ -13,9 +13,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0bltd")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayerA" type="CanvasLayer" parent="."]
 
-[node name="TouchScreenJoystick" type="Control" parent="CanvasLayer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayerA"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 610.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_j08b3")
+
+[node name="TouchScreenJoystick" type="Control" parent="CanvasLayerA"]
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
@@ -29,7 +38,7 @@ scale = Vector2(2, 2)
 script = ExtResource("1_lb74v")
 metadata/_custom_type_script = "uid://crvu00t6tihm1"
 
-[node name="unstruct" type="Button" parent="CanvasLayer"]
+[node name="unstruct" type="Button" parent="CanvasLayerA"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -44,7 +53,7 @@ grow_vertical = 0
 scale = Vector2(2, 2)
 text = "unstruct"
 
-[node name="jump" type="Button" parent="CanvasLayer"]
+[node name="jump" type="Button" parent="CanvasLayerA"]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -58,15 +67,20 @@ grow_vertical = 2
 scale = Vector2(2, 2)
 text = "jump"
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 610.0
+[node name="Button" type="Button" parent="CanvasLayerA"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -17.0
+offset_top = 57.0
+offset_right = 9.13501
+offset_bottom = 88.0
 grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("3_j08b3")
+rotation = -1.5708
+scale = Vector2(2, 2)
+text = "="
 
-[connection signal="pressed" from="CanvasLayer/unstruct" to="." method="_on_unstruct_pressed"]
-[connection signal="pressed" from="CanvasLayer/jump" to="." method="_on_jump_pressed"]
-[connection signal="look_input" from="CanvasLayer/TextureRect" to="CanvasLayer/TextureRect" method="_on_look_input"]
+[connection signal="look_input" from="CanvasLayerA/TextureRect" to="CanvasLayerA/TextureRect" method="_on_look_input"]
+[connection signal="pressed" from="CanvasLayerA/unstruct" to="." method="_on_unstruct_pressed"]
+[connection signal="pressed" from="CanvasLayerA/jump" to="." method="_on_jump_pressed"]
+[connection signal="pressed" from="CanvasLayerA/Button" to="." method="_on_button_pressed"]

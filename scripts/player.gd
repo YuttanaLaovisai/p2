@@ -8,6 +8,7 @@ extends CharacterBody3D
 @onready var stamina_bar = $ProgressBar
 @onready var hold_point = $Pivot/Camera3D/HoldItem
 @onready var joystick: Control = $mobile_controller/CanvasLayer/TouchScreenJoystick
+@onready var mobile_controller: = $mobile_controller/CanvasLayerA
 
 var yaw = 0.0
 var pitch = 0.0
@@ -30,6 +31,11 @@ var is_walking = false
 
 # =====================================================
 func _ready() -> void:
+	if OS.has_feature("mobile"):
+		Input.set_emulate_mouse_from_touch(false)
+	if OS.has_feature("pc"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		mobile_controller.visible = false
 	GlobalSignal.jump_pressed.connect(_on_jump_pressed)
 	GlobalSignal.unstruct.connect(_on_unstruct_pressed)
 	GlobalSignal.look.connect(_on_touch_look_input)
@@ -39,7 +45,6 @@ func _ready() -> void:
 		sens = GlobalSens.get_sensitivity()
 	else:
 		sens = 0.02
-	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	stamina_bar.max_value = max_stamina
 
 # =====================================================
@@ -49,12 +54,17 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # =====================================================
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		yaw -= event.relative.x * sens * 0.5
-		pitch -= event.relative.y * sens * 0.5
-		pitch = clamp(pitch, deg_to_rad(-80), deg_to_rad(90))
-		rotation.y = yaw
+	if OS.has_feature("mobile"):
+		print("mobile")
+		return
+
+	if event is InputEventMouseMotion: 
+		yaw -= event.relative.x * sens * 0.5 
+		pitch -= event.relative.y * sens * 0.5 
+		pitch = clamp(pitch, deg_to_rad(-80), deg_to_rad(90)) 
+		rotation.y = yaw 
 		pivot.rotation.x = pitch
+
 
 # =====================================================
 func _process(delta: float) -> void:

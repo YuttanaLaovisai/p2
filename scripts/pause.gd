@@ -6,6 +6,7 @@ extends CanvasLayer
 
 
 func _ready() -> void:
+	GlobalSignal.pause.connect(_pause)
 	pause_menu.visible = false
 	option.visible = false
 	pause.visible = false
@@ -56,3 +57,11 @@ func _on_exit_pressed() -> void:
 	GlobalInventory.v8 = 0
 	Globalkey.is_on = false
 	get_tree().change_scene_to_file("res://scenes/start.tscn")
+
+func _pause():
+	if get_tree().paused:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		resume_game()
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		pause_game()

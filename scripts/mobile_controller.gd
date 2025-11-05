@@ -8,3 +8,7 @@ func _on_jump_pressed() -> void:
 
 func _on_unstruct_pressed() -> void:
 	GlobalSignal.unstruct.emit()
+
+
+func _on_button_pressed() -> void:
+	GlobalSignal.pause.emit()
